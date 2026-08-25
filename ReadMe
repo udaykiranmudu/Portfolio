@@ -1,0 +1,89 @@
+# Machine Learning on Big Data Portfolio
+
+A 9-week portfolio of Python notebooks built with **PySpark** and **Spark ML**, covering the core big-data machine learning workflow end-to-end: distributed data processing, regression, classification, NLP/text feature engineering, a custom algorithm implementation from scratch, and time-series forecasting.
+
+Each notebook was developed and executed in **Google Colab**, mounting data directly from Google Drive.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Distributed Compute & ML:** PySpark (Spark SQL, Spark ML, RDDs)
+* **Data Manipulation:** pandas, NumPy
+* **Visualization:** matplotlib, seaborn, wordcloud
+* **Evaluation & NLP Utilities:** scikit-learn, NLTK
+* **Environment:** Google Colab, Google Drive
+
+---
+
+## 📁 Repository Structure
+
+| Notebook | Week | Topic |
+| :--- | :---: | :--- |
+| `Week_1-PortFolio.ipynb` | 1 | **Airline Delays** — PySpark fundamentals & visualization |
+| `Week_2-PortFolio.ipynb` | 2 | **Property Price Prediction** — Linear, Lasso & Ridge Regression |
+| `Week3_PortFolio.ipynb` | 3 | **Titanic Survival** — Logistic Regression & class imbalance handling |
+| `Week4_Portfolio_.ipynb` | 4 | **Customer Segmentation** — Multi-class classification |
+| `Week_5_PortFolio.ipynb` | 5 | **Document Classification** — TF-IDF, stemming/lemmatization & Word2Vec |
+| `Week_6_portfolio.ipynb` | 6 | **Enron Email Spam** — Naive Bayes variants & hyperparameter tuning |
+| `Week_7_PerceptronSpamClassifier_Portfolio.ipynb` | 7 | **Spam Classifier** — Perceptron implemented from scratch on Spark RDDs |
+| `week_8_Bitcoin_Historical_Portfolio8.ipynb` | 8 | **Bitcoin Price Forecasting** — Time-series regression with window functions |
+| `Week_9_IMDB_LinearSVM.ipynb` | 9 | **IMDB Sentiment Analysis** — Linear SVM text classification |
+
+---
+
+## 📚 Week-by-Week Summary
+
+### Week 1: Airline Delays (PySpark Fundamentals)
+* Initialized `SparkSession` and conducted distributed EDA on the Airline Delay Cause dataset.
+* Utilized `repartition()`, `describe()`, and `summary()` alongside null handling strategies.
+* Visualized key operational metrics: annual/monthly delay trends, top carriers by delay percentage, seasonal patterns, and worst-performing airports.
+
+### Week 2: Property Price Prediction (Regression)
+* Built a end-to-end Spark ML pipeline (`VectorAssembler` → `StandardScaler` → `LinearRegression`).
+* Evaluated baseline linear regression against Lasso ($L_1$) and Ridge ($L_2$) regularized variants on a 70/30 train-test split using MSE, RMSE, and $R^2$.
+* Monitored system CPU and memory overhead during pipeline execution using `psutil`.
+
+### Week 3: Synthetic Titanic Survival (Class Imbalance)
+* Handled missing data via `Imputer` after converting zero values to `NaN`.
+* Addressed severe class imbalance by computing balancing weights applied directly to `LogisticRegression` via `classWeights`.
+* Evaluated performance using `BinaryClassificationEvaluator`, Precision-Recall curves, and custom confusion matrix metrics.
+
+### Week 4: Customer Segmentation (Multi-Class Classification)
+* Engineered multi-class target labels (Low/Medium/High value) using `StringIndexer` and `OneHotEncoder`.
+* Benchmarked four classifiers: One-vs-Rest Logistic Regression, Decision Trees, Random Forests, and Gradient-Boosted Trees (GBTs) using `MulticlassClassificationEvaluator`.
+
+### Week 5: Document Classification (NLP / TF-IDF)
+* Processed the 20 Newsgroups dataset using a `Tokenizer` → `HashingTF`/`IDF` pipeline.
+* Integrated custom NLTK stemming and lemmatization routines into distributed text processing.
+* Compared downstream classification performance of TF-IDF features against continuous `Word2Vec` embeddings.
+
+### Week 6: Enron Email Spam Classification (Naive Bayes)
+* Transformed pre-vectorized bag-of-words data using `VectorAssembler` + `IDF`.
+* Trained and evaluated three Naive Bayes variants (**Multinomial**, **Bernoulli**, **Gaussian**) with ROC-AUC curves, confusion matrices, and word clouds.
+* Applied grid search hyperparameter tuning to optimize the top-performing model.
+
+### Week 7: Perceptron Spam Classifier (Custom RDD Implementation)
+* Processed text using `RegexTokenizer`, `StopWordsRemover`, TF-IDF, and `StandardScaler`.
+* **Implemented the Perceptron algorithm from scratch** using distributed Spark RDD map/reduce operations (`treeAggregate`).
+* Executed a learning-rate sweep ($\eta \in [0.1, 2.0]$) to analyze convergence rates and misclassification bounds across training epochs.
+
+### Week 8: Bitcoin Price Forecasting (Time Series)
+* Built rolling-window aggregations and lag features using Spark `Window` functions for next-day close prediction.
+* Formulated a strict chronological (non-random) split to prevent target leakage.
+* Compared Linear Regression against Gradient-Boosted Trees using MAE, RMSE, and temporal prediction plots.
+
+### Week 9: IMDB Sentiment Classification (Linear SVM)
+* Processed 50,000 movie reviews, stripping HTML artifacts and fitting TF-IDF vectors strictly on training splits to prevent data leakage.
+* Applied **Linear SVM (`LinearSVC`)** as the primary classifier alongside a Logistic Regression baseline.
+* Evaluated performance using Precision, Recall, F1-score, AUC-ROC curves, and confusion matrices.
+
+---
+
+## 🚀 How to Run
+
+1. Open any `.ipynb` notebook in **Google Colab**.
+2. Mount your Google Drive to load datasets:
+   ```python
+   from google.colab import drive
+   drive.mount('/content/drive')
